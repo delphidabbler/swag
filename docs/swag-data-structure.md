@@ -73,7 +73,7 @@ _Attribute:_
 
 * `version` - the file version. **Must** have value `1`.
 
-The `swag` tag contains two tags: `categories` and `snippets`, both of which myst occur exactly once.
+The `swag` tag contains two tags: `categories` and `packets`, both of which myst occur exactly once.
 
 
 #### `swag/categories`
@@ -93,7 +93,7 @@ The `category` tag is a container for data that defines a single category.
 
 _Attribute:_
 
-* `id` - the unique identifier of the category within the SWAG collection. **Note:** this identifier is also the (case sensitive) name of the category's sub-directory. It's not the best of design choices to make this assumption!
+* `id` - a positive integer identifier. Identifies the category uniquely within the whole SWAG collection.
 
 This tag must contain exactly one `title` tag, and nothing else.
 
@@ -109,35 +109,31 @@ _Attributes:_
 The content of this tag must be a non-empty string of text and nothing else.
 
 
-#### `swag/snippets`
+#### `swag/packets`
 
-There is a single `snippets` tag that is a container for a list of the packets in the SWAG collection.
+There is a single `packets` tag that is a container for a list of the packets in the SWAG collection.
 
 _Attributes:_
 
 * none
 
-This tag contains multiple `snippet` tags, one for each packet, and nothing else.
-
-> **Note:** a better name for this tag would be _packets_.
+This tag contains multiple `packet` tags, one for each packet, and nothing else.
 
 
-#### `swag/snippets/snippet`
+#### `swag/packets/packet`
 
-The `snippet` tag is a container for data that defines a single SWAG packet.
+The `packet` tag is a container for data that defines a single SWAG packet.
 
 _Attribute:_
 
-* `id` - an integer identifier. Identifies the packet uniquely within the whole SWAG collection.
+* `id` - a positive integer identifier. Identifies the packet uniquely within the whole SWAG collection.
 
 This tag must contain exactly one each of the `category-id`, `file-name`, `date`, `title`, `author` and `is-document` tags, and nothing else.
 
-> **Note:** a better name for this tag would be _packet_.
 
+#### `swag/packets/packet/category-id`
 
-#### `swag/snippets/snippet/category-id`
-
-The `category-id` tag specifies the id of the category that contains the packet identified by the enclosing `snippet` tag.
+The `category-id` tag specifies the id of the category that contains the packet identified by the enclosing `packet` tag.
 
 _Attributes:_
 
@@ -146,20 +142,20 @@ _Attributes:_
 The content of this tag must be a valid category id and nothing else.
 
 
-#### `swag/snippets/snippet/file-name`
+#### `swag/packets/packet/file-name`
 
-The `file-name` tag specifies the name of the file containing the content of the packet identified by the enclosing `snippet` tag.
+The `file-name` tag specifies the path to a file containing the content of the packet identified by the enclosing `packet` tag.
 
 _Attributes:_
 
 * none
 
-This tag must contain only the base file name of the packet file, without any path information. The specified file must exist within the directory of the associated category.
+The packet file name must be prefixed with the path to the file relative to the location of the XML file. There is no resitriction on the depth of the path and the path may be empty if the packet file is in the same directory as the XML file. The file must exist.
 
 
-#### `swag/snippets/snippet/date`
+#### `swag/packets/packet/date`
 
-The `date` tag specifies the date and time of release of the packet identified by the enclosing `snippet` tag.
+The `date` tag specifies the date and time of release of the packet identified by the enclosing `packet` tag.
 
 _Attributes:_
 
@@ -168,20 +164,9 @@ _Attributes:_
 This tag must contain only a date in YYYY-MM-DD format followed by a space and then the time in HH:MM:SS format. The date and time separators must not be localised.
 
 
-#### `swag/snippets/snippet/title`
+#### `swag/packets/packet/title`
 
-The `title` tag specifies a brief, descriptive, title of the packet identified by the enclosing `snippet` tag.
-
-_Attributes:_
-
-* none
-
-The content of this tag must be a non-empty string of text and nothing else.
-
-
-#### `swag/snippets/snippet/author`
-
-The `author` tag specifies the name(s) of the author(s) of the packet identified by the enclosing `snippet` tag.
+The `title` tag specifies a brief, descriptive, title of the packet identified by the enclosing `packet` tag.
 
 _Attributes:_
 
@@ -190,9 +175,20 @@ _Attributes:_
 The content of this tag must be a non-empty string of text and nothing else.
 
 
-#### `swag/snippets/snippet/is-document`
+#### `swag/packets/packet/author`
 
-The `is-document` tag indicates whether or not the packet identified by the enclosing `snippet` tag is a plain text document or not. Packets that are not plain text documents are considered to be Pascal code.!
+The `author` tag specifies the name(s) of the author(s) of the packet identified by the enclosing `packet` tag.
+
+_Attributes:_
+
+* none
+
+The content of this tag must be a non-empty string of text and nothing else.
+
+
+#### `swag/packets/packet/is-document`
+
+The `is-document` tag indicates whether or not the packet identified by the enclosing `packet` tag is a plain text document or not. Packets that are not plain text documents are considered to be Pascal code.
 
 _Attributes:_
 
