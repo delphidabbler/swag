@@ -39,6 +39,8 @@ VERSION=$1
 RELEASE_DIR="./_release"
 RELEASE_FILE_STUB="${RELEASE_DIR}/dd-swag-v${VERSION}"
 ZIP_FILE="${RELEASE_FILE_STUB}.zip"
+TEMP_DIR="${RELEASE_DIR}/_temp"
+TEMP_SWAG_DIR="${TEMP_DIR}/swag"
 
 echo Creating DelphiDabbler SWAG release $VERSION
 echo
@@ -47,13 +49,28 @@ echo
 rm -rf $RELEASE_DIR || true
 mkdir $RELEASE_DIR
 
+# Create temp directory for manipulating file
+mkdir $TEMP_DIR
+mkdir $TEMP_SWAG_DIR
+
+# Copy source dir to temp directory & rename 'source' as 'swag'
+echo Copying files
+cp -R -f ./source/* "${TEMP_SWAG_DIR}"
+
 echo Zipping data
 
 # Files from root dir
-zip -q $ZIP_FILE *.* -x MakeRelease.sh  
+zip -q $ZIP_FILE *.* -x MakeRelease.sh
 # Files from 'docs' dir copied to root
-zip -q -j $ZIP_FILE ./docs/* 						
-# Files and sub dirs in 'source' dir copied with dir structure intact
-zip -q -r $ZIP_FILE ./source/*          
+zip -q -j $ZIP_FILE ./docs/*
+# Files and sub dirs in temp 'swag' dir copied with dir structure intact
+cd $TEMP_DIR
+zip -q -r "../../${ZIP_FILE}" ./swag/*
+cd ../..
 
+# Tidy up
+echo Tidying up
+rm -rf $TEMP_DIR || true
+
+echo
 echo Done
