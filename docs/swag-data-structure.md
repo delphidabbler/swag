@@ -198,6 +198,6 @@ The value of the `is-document` tag must either be `0` indicate the packet is Pas
 
 ## Version information
 
-The collection's release version is recorded in a `VERSION` file in the same directory as `swag.xml`.
+The collection's release version is recorded in a `VERSION` file in the same directory as `swag.xml`. The file is in plain UTF-8 format, without BOM.
 
 There is just a single line of text in the file which comprises a version number in the form `x.y.z` or `x.y.z-<prerel>`, where `x`, `y` and `z` are the major, minor and patch version numbers and `<prerel>` specifies a pre-release version. Examples are `1.0.0`, `1.1.0-beta.1`, `2.0.0-alpha` and `2.2.0-rc.1`.
