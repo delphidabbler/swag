@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Initial release of the collection.
 
-### Contents
+### Overview
 
 * An unchanged copy of the packets from the final 1997 SWAG collection, divided into the original category directories.
 * Unchanged copies of the original collection's `dir.txt` files, one per directory.
@@ -23,6 +23,5 @@ Initial release of the collection.
 * A new change log.
 * A new read me file.
 * New documentation of the collection's data structure.
-* New `VERSION` file contain current release's version number.
+* New `VERSION` file containing the current release's version number.
 * A new script used to build releases.
-
