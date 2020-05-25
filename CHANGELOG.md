@@ -23,5 +23,6 @@ Initial release of the collection.
 * A new change log.
 * A new read me file.
 * New documentation of the collection's data structure.
+* New `VERSION` file contain current release's version number.
 * A new script used to build releases.
 
