@@ -35,9 +35,9 @@ The collection now has an XML file that provides meta-data that describes the pa
 
 > I _know_ those `dir.txt` files are hard to parse because `swag.xml` was generated from them. I had to spend hours hand correcting errors and inconsistencies before I had workable code. To be accurate I actually created an SQL database from the `dir.txt` files and then created `swag.xml` from exported SQL, again with many tucks and tweaks!
 
-A `VERSION` file has also been added to enable applications to know which version of SWAG they are dealing with.
+A `VERSION` file has also been added to enable applications that access the collection to discover which version of SWAG they are dealing with.
 
-A comprehensive explanation of the data structure and the XML file's tags can be found in the file `swag-data-structure.md`. If you're intending to write code that accesses the data you need to read this.
+A comprehensive explanation of the collection's data structure and the XML file's tags can be found in the file `swag-data-structure.md`. If you're intending to write code that accesses the data you need to read this.
 
 
 ### The repo
@@ -48,9 +48,8 @@ The GitHub repository has the following structure:
 ./                        - Repo root: read-me, change log, licenses & release script
   docs/                   - SWAG data structure documentation
   source/                 - Meta data - xml and version information files
-    <category-sub-dirs>/  - One sub-directory for each SWAG category each of which
-                            contains the associated packet files & the `dir.txt` file
-                            noted above.
+    <category-sub-dirs>/  - One sub-directory for each SWAG category, each of which
+                            contains the associated packet files and `dir.txt` file.
 ~~~
 
 
@@ -59,25 +58,22 @@ The GitHub repository has the following structure:
 
 ### Get the latest release
 
-The latest release can be found in the [_releases_ section](https://github.com/delphidabbler/swag/releases) of the GitHub project. Release files are named `dd-swag-<version>.zip`, where version is the release version number.
+The latest release can be found in the [_releases_ section](https://github.com/delphidabbler/swag/releases) of the GitHub project. Release files are zip files named `dd-swag-<version>.zip`, where `<version>` is the release version number.
 
 
 ### Installing SWAG
 
-Releases are provided in zip files. Simply extract the zip file into a suitable folder on your computer.
-
-The directory structure of releases differs from that in the repository. It is:
+Simply extract the zip file into a suitable folder on your computer. The resultant directory structure differs from that in the repository. It is:
 
 ~~~
 ./                        - Contains documentation
   swag/                   - "Root" of swag data. Contains `swag.xml` and `VERSION`
                             files.
     <category-sub-dirs>   - One sub-directory for each SWAG category each of which
-                            contains the associated packet files & the `dir.txt` file
-                            noted above.
+                            contains the associated packet files and `dir.txt` file.
 ~~~
 
-Applications that access the SWAG collection need only the contents of the `swag` directory - the documentation at the "root" level can be discarded. The contents of `swag` can be copied anywhere you need it.
+Applications that access the SWAG collection need only the contents of the `swag` directory. The contents of `swag` can be copied anywhere you need it.
 
 
 ### Using SWAG
@@ -87,7 +83,7 @@ Their are two ways you can use the release: manually examine the files or use/cr
 
 #### Manual browsing
 
-Simply browse the category directories with your file browser or from the command line and examine the `package` files. The `dir.txt` files give to the name of the category and, for packages, the description, last update date and author(s).
+Simply browse the category directories and examine the `package` files. The `dir.txt` files provide the name of the category and, for packages, the description, last update date and author(s).
 
 Use any of the code in the packets as you wish, providing you abide by the relevant license.
 
@@ -96,13 +92,13 @@ Use any of the code in the packets as you wish, providing you abide by the relev
 
 I don't know of any specialised SWAG viewers that are available right now.
 
-[DelphiDabbler CodeSnip](https://github.com/delphidabbler/codesnip) is a code snippets management program. While not specifically designed for viewing SWAG packets, it can import them as snippets. In fact the import dialogue box provides a self-contained SWAG viewer. From v4.16.0 CodeSnip can be used to access the current release of SWAG.
+[DelphiDabbler CodeSnip](https://github.com/delphidabbler/codesnip) is a code snippets management program. While not specifically designed for viewing SWAG packets, it can import them as snippets. In fact its import dialogue box provides a self-contained SWAG viewer. From v4.16.0, CodeSnip can be used to access the current release of SWAG.
 
-The other option is to write one. To start from scratch you will need to study `swag-data-structure.md` in this project's `docs` directory.
+The other option is to write a viewer. To start from scratch you will need to study `swag-data-structure.md` in the `docs` directory.
 
-CodeSnip's Delphi Pascal source code is available at the above address. The units with a `SWAG` prefix and the dialogue box code in `FmSWAGImportDlg.pas` contain the main logic. They depend on other code to read the XML etc., but that's all there too.
+CodeSnip's Delphi Pascal source code is available at the above address. The units with a `SWAG` prefix, and the dialogue box code in `FmSWAGImportDlg.pas`, contain the main logic. They depend on other code to read the XML etc., but that's all there too.
 
-> I did have a JavaScript web application that was a SWAG viewer, but that depended on getting SWAG from a REST service that is no longer available. Maybe one day I'll modify that app to get its data from this version of SWAG. Maybe!
+> I did have a JavaScript web application that was a SWAG viewer, but it depended on getting SWAG from a REST service that is no longer available. Maybe one day I'll modify that app to get its data from this version of SWAG ... Maybe!
 
 
 
@@ -110,25 +106,25 @@ CodeSnip's Delphi Pascal source code is available at the above address. The unit
 
 You can redistribute the whole release as you wish in accordance with the various licenses. You **must** include the license information in any distribution.
 
-The easiest way is simple to distribute the existing release zip file.
+The easiest way is simply to redistribute the existing release zip file.
 
-If you want to change the distribution you can meet the license requirements by including the `LICENSE.md`, `gnu-fdl.txt`, `lgpl.txt` and `mit-license.txt` files.
+If you want to change the distribution you can meet the requirement to include license information by including the `LICENSE.md`, `gnu-fdl.txt`, `lgpl.txt` and `mit-license.txt` files.
 
 
 ## Building a release
 
-There is a single bash script in the root of the repository named `MakeRelease.sh`. Change into the repository root directory and run the script without parameters.
+There is a single bash script named `MakeRelease.sh` in the root of the repository. Change into the repository root directory and run the script without parameters.
 
-A zip file named `dd-swag-<version>.zip` (where version is the release version number) will be created in a `_release` sub-directory of the repository root. The zip file will have the folder structure described in the previous section.
+A zip file named `dd-swag-<version>.zip` (where `<version>` is the release version number) will be created in a `_release` sub-directory of the repository root. The zip file will have the folder structure described in the previous section.
 
 > Note that the `_release` folder is ignored by Git.
 
 
 ### Prerequisites
 
-`MakeRelease.sh` uses the following utilities:
+`MakeRelease.sh` requires the following utilities:
 
-* Info-Zip's `zip.exe`.
+* Info-ZIP's `zip.exe` or compatible.
 * The GNU coreutils version of `cp` or compatible.
 
 
@@ -136,7 +132,7 @@ A zip file named `dd-swag-<version>.zip` (where version is the release version n
 
 The bash shell of MINGW32 or similar is recommended for Windows users. MINGW32 comes with the correct version of `cp` pre-installed (v8.31 was used to build the release).
 
-MINGW32 does not come with Info-ZIP `zip.exe` by default. However it can be downloaded from the [GNUWin32 project](https://sourceforge.net/projects/gnuwin32/) on SourceForge. You need Zip v3 which also requires the BZip2 library. Get these as follows.
+MINGW32 does not come with Info-ZIP `zip.exe` by default. However it can be downloaded from the _Files_ section of the [GNUWin32 project](https://sourceforge.net/projects/gnuwin32/) on SourceForge. You need Zip v3 which also requires the BZip2 library. Get these as follows.
 
 1. Go to the [`zip/3.0/`](https://sourceforge.net/projects/gnuwin32/files/zip/3.0/) directory and download `zip-3.0-bin.zip`. Unzip the downloaded file, navigate to the `bin` directory and copy `zip.exe` to the `.\bin` folder of the MINGW32 installation.
 2. Go to the [`bzip2/1.0.5`](https://sourceforge.net/projects/gnuwin32/files/bzip2/1.0.5/) directory and download `bzip2-1.0.5-bin.zip`. Unzip it, move into the `bin` directory and copy `bzip2.dll` to the same directory as `zip.exe`.
@@ -146,19 +142,19 @@ MINGW32 will now be able to use `zip.exe`. You may need to restart your terminal
 
 ## Contributing
 
-You are welcome to contribute updates and fixes to the new code added in this version of the collection.
+You are welcome to contribute updates and fixes to the code used to manage the SWAG collection.
 
-> **Note:** Please do not submit any changes to the original SWAG collection: it is frozen. The purpose of this project is simply to provide developers with easy programmatic access to the existing collection.
+> **Note:** Please do not submit any changes to the original SWAG package files: they are frozen. The purpose of this project is simply to provide developers with easy programmatic access to the existing collection.
 
-The GitFlow methodology is used in developing the project, so please fork the repo and create a feature branch off the `develop` branch and create your contribution there. Open a pull request when ready.
+The GitFlow methodology is used in developing the project, so please fork the repo and create a feature branch off the `develop` branch and create your contribution there. Open a pull request when done.
 
 
 ## Licensing
 
 Licensing is a little complicated. For full details see the file `LICENSE.md`. The following is a brief summary:
 
-* Code and examples from the original SWAG database are licensed under whichever is the most appropriate of the GNU Lesser General Purpose License or the GNU Free Documentation License, unless the code or example has a statement to the contrary.
-* Any code or documenation added the DelphiDabbler version of the collection is licensed under the MIT License.
+* Code and examples from the original SWAG database are licensed under whichever is the most appropriate of the GNU Lesser General Purpose License or the GNU Free Documentation License, unless the package file has a statement to the contrary.
+* Any code or documentation added to the DelphiDabbler version of the collection is licensed under the MIT License.
 
 
 ## Acknowledgements
